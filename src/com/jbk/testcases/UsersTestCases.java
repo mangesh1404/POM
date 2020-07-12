@@ -18,17 +18,20 @@ public class UsersTestCases {
 
 	@BeforeSuite
 	public void setup_Browser() throws Exception {
-		driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+		 driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.get("file:///D:/AdminLTE/index.html");
+		driver.get("file:///C:/Users/Administrator/Desktop/Offline%20Website/Offline%20Website/index.html");
 	}
 
-	@Test(priority = 7)
+	@Test(priority = 1)
 	public void checkErrorMessage() {
 		LoginPage lp = new LoginPage(driver);
-		DashBoardPage boardPage=lp.navigateToDashBoard();
-		UserPage userPage=boardPage.navigateToUserPage();
-		Assert.assertTrue(userPage.checkLogoutLabel());
+		DashBoardPage dp=lp.navigateToDashBoard();
+		UserPage up=dp.clickUserLink(driver);
+		up.verifyHeader();
+		up.verifyEmail();
+		
 	}
 
 

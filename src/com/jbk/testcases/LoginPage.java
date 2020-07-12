@@ -3,6 +3,8 @@ package com.jbk.testcases;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
@@ -10,11 +12,26 @@ public class LoginPage {
 
 	LoginPage(WebDriver driver) {
 		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		
 	}
 
-	// take out all web elements
+	///uname , pass, loginButton and error
+	
+	@FindBy(id="email")
+	public WebElement uname;
+	
+	@FindBy(id="password")
+	public WebElement pass;
+	
+	@FindBy(xpath="//button")
+	public WebElement loginButton;
+	
+	@FindBy(xpath="//*[@id=\\\"email_error\\\"]")
+	public WebElement error;
+	
 
-	public WebElement emailElement() {
+	/*public WebElement emailElement() {
 		return driver.findElement(By.id("email"));
 	}
 
@@ -27,8 +44,8 @@ public class LoginPage {
 	}
 
 	public WebElement errorMessage() {
-		return driver.findElement(By.xpath("//*[@id=\"email_error\"]"));
-	}
+		return driver.findElement(By.xpath("//*[@id=\\\"email_error\\\"]"));
+	}*/
 
 	public String title() {
 		return driver.getTitle();
@@ -36,19 +53,19 @@ public class LoginPage {
 
 	// all actions related to those webelements
 	public void enterTextIntoUname(String text) {
-		emailElement().sendKeys(text);
+		uname.sendKeys(text);
 	}
 
 	public void enterTextIntoPassword(String text) {
-		passwordElement().sendKeys(text);
+		pass.sendKeys(text);
 	}
 
 	public void clickLoginButton() {
-		buttonElement().click();
+		loginButton.click();
 	}
 
 	public String textErrorMesage() {
-		return errorMessage().getText();
+		return error.getText();
 	}
 
 	// all navigations

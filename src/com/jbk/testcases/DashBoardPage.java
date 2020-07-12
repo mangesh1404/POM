@@ -3,30 +3,39 @@ package com.jbk.testcases;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class DashBoardPage {
 	WebDriver driver;
 
 	public DashBoardPage(WebDriver driver) {
 		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 	// all web element
 	// all actions
 	// all varifications
 	// all navigations
-
+	
+	@FindBy(xpath="//span[text()='Users']")
+	public WebElement userLink;
+	
+	
+	
 	WebElement getLabelLogout() {
 		return driver.findElement(By.xpath("logout xoath"));
 	}
-	WebElement getUserLink() {
+	/*WebElement getUserLink() {
 		return driver.findElement(By.xpath("userLink"));
-	}
+	}*/
 
 	String getLabel() {
 		return getLabelLogout().getText();
 	}
-	void  clickUserLink() {
-		 getUserLink().click();
+	public UserPage  clickUserLink(WebDriver driver) {
+		userLink.click();
+		return new UserPage(driver);
 	}
 
 	boolean checkLogoutLabel() {
@@ -44,7 +53,7 @@ public class DashBoardPage {
 	}
 	
 	UserPage navigateToUserPage(){
-		clickUserLink();
+		clickUserLink(driver);
 		return new UserPage(driver);
 	}
 
